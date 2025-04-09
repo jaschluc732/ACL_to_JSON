@@ -21,17 +21,23 @@ def acl_to_json(acl_data, output_file):
         print("No ACL data to write.")
 
 def main():
-    """Main function to connect to the Arista device, retrieve the ACL, and convert it to JSON."""
-    # Replace with your device credentials and ACL name
+    """Main function to prompt user input, connect to the device, retrieve ACL, and convert it to JSON."""
+    print("--- Arista ACL Retrieval Tool ---")
+
+    host = input("Enter Arista device IP or hostname: ").strip()
+    username = input("Enter username: ").strip()
+    password = input("Enter password: ").strip()
+    acl_name = input("Enter ACL name to retrieve: ").strip()
+
+    output_file = f"{acl_name}.json"
+
     connection_settings = {
         'transport': 'https',
-        'host': 'your_arista_host',
-        'username': 'your_username',
-        'password': 'your_password',
+        'host': host,
+        'username': username,
+        'password': password,
         'return_output': True
     }
-    acl_name = 'your_acl_name'
-    output_file = f'{acl_name}.json'
 
     try:
         node = pyeapi.connect(**connection_settings)
